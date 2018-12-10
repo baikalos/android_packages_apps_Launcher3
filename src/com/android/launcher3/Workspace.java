@@ -333,7 +333,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                 break;
             // Flashlight
             case 2:
-                BaikalOSUtils.toggleCameraFlash();
+// ToDo: implement this in BaikalService:
+//                BaikalOSUtils.toggleCameraFlash();
                 break;
         }
     }
