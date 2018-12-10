@@ -32,7 +32,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.SwitchPreference;
 import android.view.MenuItem;
 
-import com.android.internal.util.nitrogen.NitrogenUtils;
+import com.android.internal.util.baikalos.BaikalOSUtils;
 
 public class Homescreen extends SettingsActivity implements PreferenceFragment.OnPreferenceStartFragmentCallback {
 
@@ -83,7 +83,7 @@ public class Homescreen extends SettingsActivity implements PreferenceFragment.O
             SwitchPreference showSearchBar = (SwitchPreference)
                     findPreference(KEY_SHOW_SEARCHBAR);
 
-            if (!NitrogenUtils.isAvailableApp(LauncherTab.SEARCH_PACKAGE, mContext)) {
+            if (!BaikalOSUtils.isAvailableApp(LauncherTab.SEARCH_PACKAGE, mContext)) {
                 getPreferenceScreen().removePreference(feedIntegration);
                 getPreferenceScreen().removePreference(showSearchBar);
             }

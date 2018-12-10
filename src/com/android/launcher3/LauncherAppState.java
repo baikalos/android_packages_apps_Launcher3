@@ -33,7 +33,7 @@ import com.android.launcher3.util.ConfigMonitor;
 import com.android.launcher3.util.Preconditions;
 import com.android.launcher3.util.SettingsObserver;
 
-import com.android.internal.util.nitrogen.NitrogenUtils;
+import com.android.internal.util.baikalos.BaikalOSUtils;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -97,7 +97,7 @@ public class LauncherAppState {
         Preconditions.assertUIThread();
         mContext = context;
 
-        setSearchAppAvailable(NitrogenUtils.isAvailableApp(LauncherTab.SEARCH_PACKAGE, context));
+        setSearchAppAvailable(BaikalOSUtils.isAvailableApp(LauncherTab.SEARCH_PACKAGE, context));
 
         mInvariantDeviceProfile = new InvariantDeviceProfile(mContext);
         mIconCache = new IconCache(mContext, mInvariantDeviceProfile);
