@@ -329,7 +329,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                 break;
             // Sleep
             case 1:
-                BaikalOSUtils.switchScreenOff(getContext());
+                BaikalOSUtils.goToSleep(getContext());
                 break;
             // Flashlight
             case 2:
