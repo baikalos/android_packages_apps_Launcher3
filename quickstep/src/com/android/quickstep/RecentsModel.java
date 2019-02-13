@@ -232,6 +232,7 @@ public class RecentsModel extends TaskStackChangeListener {
 
     public void onStart() {
         mRecentsTaskLoader.startLoader(mContext);
+        mRecentsTaskLoader.getHighResThumbnailLoader().setVisible(true);
     }
 
     public void onTrimMemory(int level) {

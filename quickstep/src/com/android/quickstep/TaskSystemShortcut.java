@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.launcher3.AbstractFloatingView;
 import com.android.launcher3.BaseDraggingActivity;
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.ItemInfo;
