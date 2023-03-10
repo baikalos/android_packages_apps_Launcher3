@@ -247,4 +247,7 @@
     <!-- App drawer searchbar -->
     <string name="drawer_search_title">סרגל חיפוש יישומים</string>
     <string name="drawer_search_summary">הצגת סרגל חיפוש בראש מגירת היישומים</string>
+    <!-- Restart launcher -->
+    <string name="pref_restart_title">הפעלה מחדש</string>
+    <string name="pref_restart_summary">הפעלה מחדש של משגר היישומים (לאונצ\'ר) להחלת הגדרות ששונו</string>
 </resources>
