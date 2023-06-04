@@ -86,8 +86,8 @@
     <string name="label_search">搜尋</string>
     <string name="label_lens">智慧鏡頭</string>
     <string name="label_voice_search">語音搜尋</string>
-    <string name="dock_music_search_title">Music search</string>
-    <string name="dock_music_search_summary">Start music search on pressing mic icon</string>
+    <string name="dock_music_search_title">音樂搜尋</string>
+    <string name="dock_music_search_summary">點選麥克風圖示，開始進行音樂搜尋</string>
     <string name="dock_search_title">Google 搜尋列</string>
     <string name="dock_search_summary">在底部顯示搜尋列</string>
     <string name="dock_theme_title">圖示套用主題色</string>
@@ -252,4 +252,9 @@
     <string name="pref_restart_summary">重新啟動主畫面來套用設定</string>
     <!-- Shake Clear Recents -->
     <string name="recents_shake_clear_all_title">晃動手機以關閉所有應用程式</string>
+    <!-- Parallax -->
+    <string name="short_parallax_title">桌布滾動</string>
+    <string name="short_parallax_summary">在主畫面頁數較少時使用桌布滾動，而非裁切部分桌布</string>
+    <string name="single_page_center_title">單頁桌布置中</string>
+    <string name="single_page_center_summary">主畫面頁數只有一頁時，使桌布置中</string>
 </resources>
