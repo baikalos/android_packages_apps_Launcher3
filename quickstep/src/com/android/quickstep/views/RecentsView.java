@@ -2272,12 +2272,14 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
 
     public abstract void startHome();
 
-    public void reset() {
-        setCurrentTask(-1);
-        mCurrentPageScrollDiff = 0;
-        mIgnoreResetTaskId = -1;
-        mTaskListChangeId = -1;
-        mFocusedTaskViewId = -1;
+    public void reset(boolean isCancelAnimation) {
+        if (!isCancelAnimation) {
+            setCurrentTask(-1);
+            mCurrentPageScrollDiff = 0;
+            mIgnoreResetTaskId = -1;
+            mTaskListChangeId = -1;
+            mFocusedTaskViewId = -1;
+        }
 
         if (mRecentsAnimationController != null) {
             if (mEnableDrawingLiveTile) {
@@ -5594,6 +5596,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
                     mRecentsAnimationController.screenshotTask(container.getTask().key.id);
             TaskThumbnailView thumbnailView = container.getThumbnailView();
             if (td != null) {
+                container.getTask().thumbnail = td;
                 thumbnailView.setThumbnail(container.getTask(), td);
             } else {
                 thumbnailView.refresh();
