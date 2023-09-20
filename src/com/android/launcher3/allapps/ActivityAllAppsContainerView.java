@@ -172,7 +172,9 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         super(context, attrs, defStyleAttr);
         mActivityContext = ActivityContext.lookupContext(context);
 
-        mScrimColor = Themes.getAttrColor(context, R.attr.allAppsScrimColor);
+        mScrimColor = ColorUtils.setAlphaComponent(Themes.getAttrColor(context,
+                R.attr.allAppsScrimColor), Utilities.getAllAppsOpacity(context) * 255 / 100);
+        mBottomSheetBackgroundColor = mScrimColor;
         mHeaderThreshold = getResources().getDimensionPixelSize(
                 R.dimen.dynamic_grid_cell_border_spacing);
         mHeaderProtectionColor = Themes.getAttrColor(context, R.attr.allappsHeaderProtectionColor);
@@ -260,9 +262,6 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
                 0,
                 0 // Bottom left
         };
-        final TypedValue value = new TypedValue();
-        getContext().getTheme().resolveAttribute(android.R.attr.colorBackground, value, true);
-        mBottomSheetBackgroundColor = value.data;
         updateBackground(mActivityContext.getDeviceProfile());
         mSearchUiManager.initializeSearch(this);
     }
@@ -1143,6 +1142,7 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
 
     @Override
     public void drawOnScrimWithScale(Canvas canvas, float scale) {
+        final MarginLayoutParams mlp = (MarginLayoutParams) getLayoutParams();
         final boolean isTablet = mActivityContext.getDeviceProfile().isTablet;
         final View panel = mBottomSheetBackground;
         final float translationY = ((View) panel.getParent()).getTranslationY();
@@ -1152,8 +1152,8 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
 
         final float topNoScale = panel.getTop() + translationY;
         final float topWithScale = topNoScale + verticalScaleOffset;
-        final float leftWithScale = panel.getLeft() + horizontalScaleOffset;
-        final float rightWithScale = panel.getRight() - horizontalScaleOffset;
+        final float leftWithScale = mlp.leftMargin + panel.getLeft() + horizontalScaleOffset;
+        final float rightWithScale = mlp.leftMargin + panel.getRight() - mlp.rightMargin - horizontalScaleOffset;
         // Draw full background panel for tablets.
         if (isTablet) {
             mHeaderPaint.setColor(mBottomSheetBackgroundColor);
