@@ -82,6 +82,13 @@
             android:defaultValue="true" />
 
         <SwitchPreference
+            android:key="pref_dark_status_bar"
+            android:title="@string/perf_dark_status_bar_title"
+            android:summary="@string/perf_dark_status_bar_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="pref_show_statusbar"
             android:title="@string/show_statusbar_title"
             android:defaultValue="true"
@@ -128,20 +135,20 @@
             android:persistent="true"/>
 
         <SwitchPreference
-            android:key="pref_show_alt_quickspace"
-            android:title="@string/quickspace_alternate_style_title"
-            android:summary="@string/quickspace_alternate_style_summary"
-            android:dependency="pref_show_quickspace"
-            android:defaultValue="false"
-            android:persistent="true"/>
-
-        <SwitchPreference
             android:key="pref_quickspace_psonality"
             android:title="@string/quickspace_psa_title"
             android:summary="@string/quickspace_psa_summary"
             android:dependency="pref_show_quickspace"
             android:defaultValue="true"
             android:persistent="true" />
+
+        <SwitchPreference
+            android:key="pref_show_alt_quickspace"
+            android:title="@string/quickspace_alternate_style_title"
+            android:summary="@string/quickspace_alternate_style_summary"
+            android:dependency="pref_show_quickspace"
+            android:defaultValue="false"
+            android:persistent="true"/>
 
         <SwitchPreference
             android:key="pref_quickspace_np"
@@ -157,6 +164,14 @@
             android:summary="@string/quick_event_ambient_weather_summary"
             android:dependency="pref_show_quickspace"
             android:defaultValue="true"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="pref_quickspace_city"
+            android:title="@string/quick_event_weather_city_title"
+            android:summary="@string/quick_event_weather_city_summary"
+            android:dependency="pref_quickspace_weather"
+            android:defaultValue="false"
             android:persistent="true" />
 
     </PreferenceCategory>
