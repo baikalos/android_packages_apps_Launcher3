@@ -273,7 +273,7 @@ constructor(@ApplicationContext private val encryptedContext: Context) {
         @JvmField val SHOW_HOTSEAT_BG = backedUpItem("pref_show_hotseat_bg", false)
         @JvmField val SHOW_QUICKSPACE = backedUpItem("pref_quickspace", true)
         @JvmField val SHOW_QUICKSPACE_ALT = backedUpItem("pref_quickspace_alt", false)
-        @JvmField val SHOW_QUICKSPACE_PSONALITY = backedUpItem("pref_quickspace_psonality", true)
+        @JvmField val SHOW_QUICKSPACE_PSONALITY = backedUpItem("pref_quickspace_psonality_disabled", false)
         @JvmField val SHOW_QUICKSPACE_NOWPLAYING = backedUpItem("pref_quickspace_np", true)
         @JvmField val SHOW_QUICKSPACE_WEATHER = backedUpItem("pref_quickspace_weather", true)
         @JvmField val SHOW_QUICKSPACE_WEATHER_CITY = backedUpItem("pref_quickspace_weather_city", false)
