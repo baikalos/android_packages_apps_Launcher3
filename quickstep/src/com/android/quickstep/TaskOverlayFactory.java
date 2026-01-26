@@ -127,6 +127,7 @@ public class TaskOverlayFactory {
             TaskShortcutFactory.UNINSTALL,
             TaskShortcutFactory.PIN,
             TaskShortcutFactory.INSTALL,
+            TaskShortcutFactory.FLOATING,
             TaskShortcutFactory.FREE_FORM,
             DesktopSystemShortcut.Companion.createFactory(),
             ExternalDisplaySystemShortcut.Companion.createFactory(),
@@ -274,6 +275,15 @@ public class TaskOverlayFactory {
         private void clearAllTasks() {
             final RecentsView recentsView = mTaskContainer.getTaskView().getRecentsView();
             recentsView.dismissAllTasks();
+        }
+
+        private void launchLens() {
+            final RecentsView recentsView =
+                    mTaskContainer.getTaskView().getRecentsView();
+            if (recentsView != null) {
+                recentsView.startHome();
+                mImageApi.startLensActivity();
+            }
         }
 
         /**
@@ -449,6 +459,15 @@ public class TaskOverlayFactory {
             public void onClearAllTasksRequested() {
                 endLiveTileMode(TaskOverlay.this::clearAllTasks);
             }
+
+            @Override
+            public void onLens() {
+                if (mIsAllowedByPolicy) {
+                    endLiveTileMode(TaskOverlay.this::launchLens);
+                } else {
+                    showBlockedByPolicyMessage();
+                }
+            }
         }
     }
 
@@ -467,5 +486,7 @@ public class TaskOverlayFactory {
         void onSaveAppPair();
 
         void onClearAllTasksRequested();
+
+        void onLens();
     }
 }

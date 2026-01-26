@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2021 The Android Open Source Project
+<!--
+     Copyright (C) 2016-2025 crDroid Android Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,8 +14,17 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:color="@android:color/system_neutral2_900"
-        android:lStar="12" />
-</selector>
+<resources>
+
+    <string-array name="quickspace_weather_provider_entries">
+        <item>@string/quickspace_weather_provider_entry_auto</item>
+        <item>@string/quickspace_weather_provider_entry_seraphix</item>
+        <item>@string/quickspace_weather_provider_entry_omnijaws</item>
+    </string-array>
+
+    <string-array name="quickspace_weather_provider_values">
+        <item>auto</item>
+        <item>seraphix</item>
+        <item>omnijaws</item>
+    </string-array>
+</resources>

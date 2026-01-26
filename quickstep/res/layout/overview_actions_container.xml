@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
             android:drawableStart="@drawable/ic_screenshot"
-            android:text="@string/action_screenshot" />
+            android:text="@string/recents_screenshot_title"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/action_split"
@@ -47,12 +48,22 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/action_lens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:drawableStart="@drawable/ic_lens"
+            android:text="@string/recents_lens_title"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/action_clear_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
             android:drawableStart="@drawable/ic_clear_all"
-            android:text="@string/recents_clear_all" />
+            android:text="@string/recents_clear_all_title"
+            android:visibility="gone" />
 
     </LinearLayout>
 

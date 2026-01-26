@@ -21,6 +21,7 @@ import static com.android.launcher3.Flags.enablePredictiveBackInOverview;
 import static com.android.launcher3.logging.StatsLogManager.LAUNCHER_STATE_OVERVIEW;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.SystemProperties;
 
@@ -28,6 +29,7 @@ import androidx.core.graphics.ColorUtils;
 
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.Launcher;
+import com.android.launcher3.LauncherPrefs;
 import com.android.launcher3.LauncherState;
 import com.android.launcher3.LauncherUiState;
 import com.android.launcher3.R;
@@ -129,8 +131,14 @@ public class OverviewState extends LauncherState {
         if (showFloatingSearch) {
             elements |= FLOATING_SEARCH_BAR;
         }
+        if (!LauncherPrefs.RECENTS_CLEAR_ALL.get(dp.getContext())) {
+            elements |= CLEAR_ALL_BUTTON;
+        }
         if (launcherUiState.isSplitSelectActiveRef().getValue()) {
-            elements &= ~ADD_DESK_BUTTON;
+            elements &= ~CLEAR_ALL_BUTTON & ~ADD_DESK_BUTTON;
+        }
+        if (LauncherPrefs.RECENTS_MEMINFO.get(dp.getContext())) {
+            elements |= MEMINFO;
         }
         return elements;
     }
@@ -163,11 +171,12 @@ public class OverviewState extends LauncherState {
 
     @Override
     public ScrimColors getWorkspaceScrimColor(Launcher launcher) {
+        int scrimColor = ColorUtils.setAlphaComponent(
+                Themes.getAttrColor(launcher, R.attr.overviewScrimColor),
+                LauncherPrefs.RECENTS_OPACITY.get(launcher) * 255 / 100);
         return new ScrimColors(
-                /* backgroundColor */ Themes.getAttrColor(launcher, R.attr.overviewScrimColor),
-                /* foregroundColor */ ColorUtils.compositeColors(
-                Themes.getAttrColor(launcher, R.attr.overviewScrimForegroundPrimary),
-                Themes.getAttrColor(launcher, R.attr.overviewScrimForegroundSecondary)));
+                /* backgroundColor */ scrimColor,
+                /* foregroundColor */ Color.TRANSPARENT);
     }
 
     @Override

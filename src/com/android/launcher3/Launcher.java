@@ -213,6 +213,7 @@ import com.android.launcher3.pm.PinRequestHelper;
 import com.android.launcher3.popup.ArrowPopup;
 import com.android.launcher3.popup.PopupController;
 import com.android.launcher3.popup.SystemShortcut;
+import com.android.launcher3.quickspace.QuickSpaceView;
 import com.android.launcher3.statemanager.StateManager;
 import com.android.launcher3.statemanager.StateManager.StateHandler;
 import com.android.launcher3.statemanager.StatefulActivity;
@@ -429,6 +430,9 @@ public class Launcher extends StatefulActivity<LauncherState>
 
     private boolean mIsTopResumedActivity;
 
+    // QuickSpace
+    private QuickSpaceView mQuickSpace;
+
     public static Launcher getLauncher(Context context) {
         return fromContext(context);
     }
@@ -530,7 +534,8 @@ public class Launcher extends StatefulActivity<LauncherState>
         // Listen for screen turning off
         ScreenOnTracker.INSTANCE.get(this).addListener(mScreenOnListener);
         getSystemUiController().updateUiState(SystemUiController.UI_STATE_BASE_WINDOW,
-                Themes.getAttrBoolean(this, R.attr.isWorkspaceDarkText));
+                Themes.getAttrBoolean(this, R.attr.isWorkspaceDarkText)
+                || LauncherPrefs.DARK_STATUS_BAR.get(this));
 
         mOverlayManager = getDefaultOverlay();
         PluginManagerWrapper.INSTANCE.get(this)
@@ -998,6 +1003,9 @@ public class Launcher extends StatefulActivity<LauncherState>
         } else {
             mOverlayManager.onActivityStopped();
         }
+        if (mQuickSpace != null) {
+            mQuickSpace.onPause();
+        }
         hideKeyboard();
         logStopAndResume(false /* isResume */);
         mAppWidgetHolder.setActivityStarted(false);
@@ -1130,7 +1138,7 @@ public class Launcher extends StatefulActivity<LauncherState>
             mWorkspace.setClipChildren(false);
         }
         // When multiple pages are visible or desktop devices, show persistent page indicator
-        mWorkspace.getPageIndicator().setShouldAutoHide(!state.hasFlag(FLAG_MULTI_PAGE)
+        mWorkspace.getPageIndicator().setShouldAutoHide(LauncherPrefs.AUTO_HIDE_DOTS.get(this)
                 && !shouldEnableMouseInteractionChanges(mWorkspace.getContext()));
 
         mPrevLauncherState = mStateManager.getCurrentStableState();
@@ -1208,6 +1216,10 @@ public class Launcher extends StatefulActivity<LauncherState>
         TraceHelper.INSTANCE.beginSection(ON_RESUME_EVT);
         super.onResume();
 
+        if (mQuickSpace != null) {
+            mQuickSpace.onResume();
+        }
+
         if (mDeferOverlayCallbacks) {
             scheduleDeferredCheck();
         } else {
@@ -1230,6 +1242,9 @@ public class Launcher extends StatefulActivity<LauncherState>
 
         if (!mDeferOverlayCallbacks) {
             mOverlayManager.onActivityPaused();
+        }
+        if (mQuickSpace != null) {
+            mQuickSpace.onPause();
         }
         mAppWidgetHolder.setActivityResumed(false);
     }
@@ -1325,11 +1340,17 @@ public class Launcher extends StatefulActivity<LauncherState>
         // Setup Scrim
         mScrimView = findViewById(R.id.scrim_view);
 
+        // QuickSpace
+        mQuickSpace = findViewById(R.id.reserved_container_workspace);
+        if (!LauncherPrefs.SHOW_QUICKSPACE.get(this) && mQuickSpace != null) {
+            mQuickSpace.setVisibility(View.GONE);
+        }
+
         // Setup the drag controller (drop targets have to be added in reverse order in priority)
         mDropTargetBar.setup(mDragController);
         mAllAppsController.setupViews(mScrimView, mAppsView);
 
-        mWorkspace.getPageIndicator().setShouldAutoHide(
+        mWorkspace.getPageIndicator().setShouldAutoHide(LauncherPrefs.AUTO_HIDE_DOTS.get(this) &&
                 !shouldEnableMouseInteractionChanges(mWorkspace.getContext()));
         mWorkspace.getPageIndicator().setPaintColor(Themes.getAttrBoolean(
                 this, R.attr.isWorkspaceDarkText) ? Color.BLACK : Color.WHITE);
@@ -1747,6 +1768,10 @@ public class Launcher extends StatefulActivity<LauncherState>
         getRootView().getViewTreeObserver().removeOnPreDrawListener(mOnInitialBindListener);
         mOverlayManager.onActivityDestroyed();
         PillColorProvider.getInstance(mWorkspace.getContext()).unregisterObserver();
+
+        if (mQuickSpace != null) {
+            mQuickSpace.onDestroy();
+        }
     }
 
     /**

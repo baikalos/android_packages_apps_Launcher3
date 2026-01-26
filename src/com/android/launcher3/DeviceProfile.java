@@ -194,6 +194,11 @@ public class DeviceProfile {
     // DragController
     public int flingToDeleteThresholdVelocity;
 
+    // Meminfo in overview
+    public int memInfoHeight;
+
+    private final Context context;
+
     /** Used only as an alternative to mocking when null values cannot be used. */
     @VisibleForTesting
     public DeviceProfile() {
@@ -231,6 +236,7 @@ public class DeviceProfile {
         hotseatProfile = new HotseatProfile(false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         mTaskbarProfile = new TaskbarProfile(0, 0, 0, 0, 0, false, false);
         mFolderProfile = new FolderProfile(0, 0, 0, 0, 0, new Point(), 0, 0, 0, 0, 0, 0, 0, 0);
+        context = null;
         inv = null;
         mDisplayOptionSpec = null;
         mInfo = null;
@@ -276,7 +282,7 @@ public class DeviceProfile {
                 isGestureMode
         );
 
-        Context context = getContext(info, isLandscapeOrientation()
+        context = getContext(info, isLandscapeOrientation()
                         ? Configuration.ORIENTATION_LANDSCAPE
                         : Configuration.ORIENTATION_PORTRAIT,
                 windowBounds);
@@ -497,6 +503,9 @@ public class DeviceProfile {
 
         splitPlaceholderInset = res.getDimensionPixelSize(R.dimen.split_placeholder_inset);
 
+        memInfoHeight = LauncherPrefs.RECENTS_MEMINFO.get(context) ? res.getDimensionPixelSize(
+                R.dimen.meminfo_claimed_height) : 0;
+
         // We need to use the full window bounds for split determination because on near-square
         // devices, the available bounds (bounds minus insets) may actually be in landscape while
         // actually portrait
@@ -580,6 +589,10 @@ public class DeviceProfile {
                 getWorkspaceIconProfile().getIconSizePx(), dotRendererCache);
         mDotRendererAllApps = createDotRenderer(
                 getAllAppsProfile().getIconSizePx(), dotRendererCache);
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     private boolean isLandscapeOrientation()  {
@@ -1444,7 +1457,7 @@ public class DeviceProfile {
         int overviewActionsSpace = mDeviceProperties.isTablet() && enableGridOnlyOverview()
                 ? 0
                 : (overviewProfile.getActionsTopMarginPx() + overviewProfile.getActionsHeight());
-        return overviewActionsSpace + getOverviewActionsClaimedSpaceBelow();
+        return overviewActionsSpace + memInfoHeight + getOverviewActionsClaimedSpaceBelow();
     }
 
     /**

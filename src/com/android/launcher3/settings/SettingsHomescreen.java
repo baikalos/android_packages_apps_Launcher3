@@ -121,7 +121,19 @@ public class SettingsHomescreen extends CollapsingToolbarBaseActivity
                 LauncherPrefs.DOCK_MUSIC_SEARCH.getSharedPrefKey().equals(key) ||
                 LauncherPrefs.HOTSEAT_QSB_OPACITY.getSharedPrefKey().equals(key) ||
                 LauncherPrefs.HOTSEAT_QSB_STROKE_WIDTH.getSharedPrefKey().equals(key) ||
-                LauncherPrefs.SHOW_STATUS_BAR.getSharedPrefKey().equals(key)) {
+                LauncherPrefs.SHOW_STATUS_BAR.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHORT_PARALLAX.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SINGLE_PAGE_CENTER.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.DARK_STATUS_BAR.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_ALT.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_PSONALITY.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_NOWPLAYING.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_WEATHER.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_WEATHER_CITY.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_WEATHER_PROVIDER.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.SHOW_QUICKSPACE_WEATHER_TEXT.getSharedPrefKey().equals(key) ||
+                LauncherPrefs.AUTO_HIDE_DOTS.getSharedPrefKey().equals(key)) {
             LauncherAppState.INSTANCE.executeIfCreated(app -> app.setNeedsRestart());
         }
     }
